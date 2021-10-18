@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
-namespace MvcMusicStore.Models
+namespace MvcMusicStore.Data.Models
 {
     public class SampleData : DropCreateDatabaseIfModelChanges<MusicStoreEntities>
     {

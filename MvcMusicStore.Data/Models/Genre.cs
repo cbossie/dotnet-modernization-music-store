@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace MvcMusicStore.Models
+namespace MvcMusicStore.Data.Models
 {
     public partial class Genre
     {

@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 
-namespace MvcMusicStore.Models
+namespace MvcMusicStore.Data.Models
 {
     public class MusicStoreEntities : DbContext
     {
