@@ -152,7 +152,6 @@
     <Compile Include="Service\HttpCatalogService.cs" />
     <Compile Include="Service\HttpRequestHelper.cs" />
     <Compile Include="Service\ICatalogService.cs" />
-    <Compile Include="Service\CatalogService.cs" />
     <Compile Include="ViewModels\StoreBrowseViewModel.cs" />
     <Compile Include="ViewModels\ShoppingCartRemoveViewModel.cs" />
     <Compile Include="ViewModels\ShoppingCartViewModel.cs" />
