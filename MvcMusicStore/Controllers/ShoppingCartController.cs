@@ -10,7 +10,7 @@ namespace MvcMusicStore.Controllers
     public class ShoppingCartController : Controller
     {
         MusicStoreEntities storeDB = new MusicStoreEntities();
-        ICatalogService catalogSvc = new CatalogService();
+        ICatalogService catalogSvc = new SqlCatalogService();
 
         //
         // GET: /ShoppingCart/
@@ -37,9 +37,6 @@ namespace MvcMusicStore.Controllers
         {
 
             // Retrieve the album from the database
-            //var addedAlbum = storeDB.Albums
-            //    .Single(album => album.AlbumId == id);
-
             var addedAlbum = catalogSvc.GetAlbumById(id);
 
 

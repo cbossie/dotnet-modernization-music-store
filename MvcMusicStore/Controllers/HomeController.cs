@@ -13,7 +13,7 @@ namespace MvcMusicStore.Controllers
         // GET: /Home/
 
         MusicStoreEntities storeDB = new MusicStoreEntities();
-        ICatalogService catalogSvc = new CatalogService();
+        ICatalogService catalogSvc = new SqlCatalogService();
 
         public ActionResult Index()
         {
@@ -37,6 +37,7 @@ namespace MvcMusicStore.Controllers
                     .Select(t => t.AlbumId)
                     .ToList();
 
+            // Return the albums corresponding to the top selling Ids
             return catalogSvc.GetAlbums(topSellingAlbums);
 
         }

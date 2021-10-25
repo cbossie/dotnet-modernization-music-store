@@ -121,7 +121,7 @@
     <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\ICatalogService.cs" />
-    <Compile Include="Service\CatalogService.cs" />
+    <Compile Include="Service\SqlCatalogService.cs" />
     <Compile Include="ViewModels\StoreBrowseViewModel.cs" />
     <Compile Include="ViewModels\ShoppingCartRemoveViewModel.cs" />
     <Compile Include="ViewModels\ShoppingCartViewModel.cs" />

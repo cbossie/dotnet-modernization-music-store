@@ -1,7 +1,8 @@
-﻿using MvcMusicStore.Models;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using MvcMusicStore.Models;
 using MvcMusicStore.Service;
 using MvcMusicStore.ViewModels;
 
@@ -10,7 +11,7 @@ namespace MvcMusicStore.Controllers
     public class StoreController : Controller
     {
  
-        ICatalogService catalogSvc = new CatalogService();
+        ICatalogService catalogSvc = new SqlCatalogService();
 
 
         //
@@ -28,17 +29,18 @@ namespace MvcMusicStore.Controllers
 
         public ActionResult Browse(string genre)
         {
-            // Retrieve Genre and its Associated Albums from database
+            // Retrieve the genre and its Associated Albums from database.
+            // If the genre is not found, then return an empty list of albums.
             var genreModel = catalogSvc.GetGenreByName(genre);
-            var albums = catalogSvc.GetAlbumsByGenre(genreModel.GenreId).OrderBy(a => a.Title).ToList();
-            
+            var albums = genreModel != null
+                ? catalogSvc.GetAlbumsByGenre(genreModel.GenreId).OrderBy(a => a.Title).ToList()
+                : new List<Album>();            
 
             var viewModel = new StoreBrowseViewModel
             {
                 Genre = genreModel,
                 Albums = albums
             };
-
 
             return View(viewModel);
         }
