@@ -31,7 +31,10 @@ namespace MvcMusicStore.Controllers
         {
             // Retrieve the genre and its Associated Albums from database.
             // If the genre is not found, then return an empty list of albums.
-            var genreModel = catalogSvc.GetGenreByName(genre);
+            // Retrieve Genre and its Associated Albums from database
+            Guid genreId;
+            if (!Guid.TryParse(genre, out genreId)) genreId = Guid.Empty;
+            var genreModel = catalogSvc.GetGenreById(genreId);
             var albums = genreModel != null
                 ? catalogSvc.GetAlbumsByGenre(genreModel.GenreId).OrderBy(a => a.Title).ToList()
                 : new List<Album>();            

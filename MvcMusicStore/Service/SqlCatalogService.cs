@@ -20,10 +20,20 @@ namespace MvcMusicStore.Service
             return storeDb.Albums.Find(id);
         }
 
-        // Given a list of album Ids, this retrieves the corresponding album data
-        public List<Album> GetAlbums(List<Guid> ids)
+        // Given a list of album Ids, this retrieves the corresponding album data.
+        // If the second parameter is supplied, then additional albums will be selected
+        // to give a minimum length list, in order to meet the business requirements
+        // of the music store
+        public List<Album> GetAlbums(List<Guid> ids, int minAlbums = 0)
         {
-            return storeDb.Albums.Where(a => ids.Contains(a.AlbumId)).ToList();
+            var selectedAlbums = storeDb.Albums.Where(a => ids.Contains(a.AlbumId)).ToList();
+            if(selectedAlbums.Count < minAlbums)
+            {
+                selectedAlbums.AddRange(storeDb.Albums.Where(a => !ids.Contains(a.AlbumId)).Take(minAlbums - selectedAlbums.Count));
+            }
+            return selectedAlbums;
+
+
         }
 
         // Retrieves all the albums for a particular genre
@@ -33,9 +43,9 @@ namespace MvcMusicStore.Service
         }
 
         // Retrieves a genre by its name
-        public Genre GetGenreByName(string genreName)
+        public Genre GetGenreById(Guid genreId)
         {
-            return storeDb.Genres.Include("Albums").Single(g => g.Name == genreName);
+            return storeDb.Genres.Include("Albums").Single(g => g.GenreId == genreId);
         }
 
         // Retrieves a list of all available genres

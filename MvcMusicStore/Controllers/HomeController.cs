@@ -37,8 +37,10 @@ namespace MvcMusicStore.Controllers
                     .Select(t => t.AlbumId)
                     .ToList();
 
-            // Return the albums corresponding to the top selling Ids
-            return catalogSvc.GetAlbums(topSellingAlbums);
+            // Return the albums corresponding to the top selling Ids. By supplying
+            // the "count" parameter, it is ensured that we will always have the correct
+            // length list of albums on display.
+            return catalogSvc.GetAlbums(topSellingAlbums, count);
 
         }
     }
