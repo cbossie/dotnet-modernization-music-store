@@ -21,18 +21,9 @@ namespace MvcMusicStore.Service
         }
 
         // Given a list of album Ids, this retrieves the corresponding album data.
-        // If the second parameter is supplied, then additional albums will be selected
-        // to give a minimum length list, in order to meet the business requirements
-        // of the music store
-        public List<Album> GetAlbums(List<Guid> ids, int minAlbums = 0)
+        public List<Album> GetAlbums(List<Guid> ids)
         {
-            var selectedAlbums = storeDb.Albums.Where(a => ids.Contains(a.AlbumId)).ToList();
-            if(selectedAlbums.Count < minAlbums)
-            {
-                selectedAlbums.AddRange(storeDb.Albums.Where(a => !ids.Contains(a.AlbumId)).Take(minAlbums - selectedAlbums.Count));
-            }
-            return selectedAlbums;
-
+            return storeDb.Albums.Where(a => ids.Contains(a.AlbumId)).ToList();
 
         }
 

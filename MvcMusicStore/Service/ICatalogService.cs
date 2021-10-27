@@ -7,7 +7,7 @@ namespace MvcMusicStore.Service
     interface ICatalogService
     {
         Album GetAlbumById(Guid id);
-        List<Album> GetAlbums(List<Guid> ids, int minAlbums = 0);
+        List<Album> GetAlbums(List<Guid> ids);
         List<Album> GetAlbumsByGenre(Guid id);
         Genre GetGenreById(Guid genreId);
         List<Genre> GetGenres();
