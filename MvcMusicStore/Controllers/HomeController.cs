@@ -25,7 +25,8 @@ namespace MvcMusicStore.Controllers
             // the albums with the highest count
             // Based on placed orders, get the top selling album IDs by quantity
             var topSellingAlbums = storeDB.OrderDetails.GroupBy(d => d.AlbumId, d => d.Quantity).Select(g => new
-            { AlbumId = g.Key, Quantity = g.Sum()}).OrderByDescending(s => s.Quantity).Take(count).Select(t => t.AlbumId).ToList();
+            {
+            AlbumId = g.Key, Quantity = g.Sum()}).OrderByDescending(s => s.Quantity).Take(count).Select(t => t.AlbumId).ToList();
             return catalogSvc.GetAlbums(topSellingAlbums);
         }
     }

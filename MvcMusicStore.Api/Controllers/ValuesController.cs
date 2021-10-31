@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MvcMusicStore.Api.Controllers
 {
-    public class ValuesController : ApiController
+    [ApiController]
+    public class ValuesController : ControllerBase
     {
         // GET api/values
         public IEnumerable<string> Get()

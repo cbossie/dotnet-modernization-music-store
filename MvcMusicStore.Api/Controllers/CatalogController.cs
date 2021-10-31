@@ -5,18 +5,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace MvcMusicStore.Api.Controllers
 {
-    [RoutePrefix("api/catalog")]
-    public class CatalogController : ApiController
+    /* Added by CTA: RoutePrefix attribute is no longer supported */
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CatalogController : ControllerBase
     {
         MusicStoreDBClient client = new MusicStoreDBClient();
-
         [HttpGet]
-        [Route("genres")]
-        public IHttpActionResult Genres(string name = null)
+        [Route("[action]")]
+        public async Task<IActionResult> Genres(string name = null)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -24,14 +26,14 @@ namespace MvcMusicStore.Api.Controllers
             }
             else
             {
-                return Ok(new List<GenreModel> { client.GenreByName(name) });
+                return Ok(new List<GenreModel>{ await client.GenreByName(name)});
             }
         }
 
         // Method expects one or more AlbumIds, comma separated
         [HttpGet]
-        [Route("albums")]
-        public IHttpActionResult Albums(string idlist = null, string genreid = null)
+        [Route("[action]")]
+        public IActionResult Albums(string idlist = null, string genreid = null)
         {
             if (!string.IsNullOrEmpty(idlist))
             {
@@ -42,6 +44,7 @@ namespace MvcMusicStore.Api.Controllers
             {
                 return Ok(client.AlbumsByGenre(genreid.ToUpper()));
             }
+
             return Ok(client.Albums());
         }
     }
