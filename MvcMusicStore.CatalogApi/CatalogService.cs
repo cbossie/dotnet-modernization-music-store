@@ -89,7 +89,7 @@ namespace MvcMusicStore.CatalogApi
             {
                 result.AddRange(await queryResult.GetNextSetAsync());
             }
-            while (!queryResult.IsDone && result.Count < limit);
+            while (!queryResult.IsDone);
 
             return result;
         }
