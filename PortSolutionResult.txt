@@ -1,81 +1,68 @@
 ==========
 References
 ==========
-MvcMusicStore.Controllers
-MvcMusicStore.Models
-System.Web.Mvc
-System.Web.Security
-System
-System.Web
-System.Data.Entity
-System.Linq
-MvcMusicStore.Service
-System.Collections.Generic
-MvcMusicStore.ViewModels
-MvcMusicStore
-System.Web.Routing
-System.ComponentModel.DataAnnotations
-System.ComponentModel
-System.Net.Http
-System.Net.Http.Headers
-System.Threading.Tasks
-System.Web.Helpers
-System.Data.Entity.Infrastructure
-System.ComponentModel.DataAnnotations.CompareAttribute
-System.Reflection
-System.Runtime.InteropServices
-System.Configuration
-project.all
-MvcMusicStore.Catalog.Models
-Amazon.DynamoDBv2.DataModel
-MvcMusicStore.Catalog
-Amazon.DynamoDBv2
-System.Text
-Amazon
-Amazon.DynamoDBv2.DocumentModel
-System.Runtime.CompilerServices
-MvcMusicStore.Api
+MvcMusicStore.CatalogApi
 System.Web.Optimization
+System.Web.Mvc
+System.Web.Routing
 System.Web.Http
-MvcMusicStore.Api.Areas.HelpPage
+MvcMusicStore.CatalogApi.Areas.HelpPage
 System.Web.Http.Description
+System
+System.Collections.Specialized
+System.Web
+System.Text
+System.Net.Http
 System.Diagnostics.CodeAnalysis
-MvcMusicStore.Api.Areas.HelpPage.Controllers
-MvcMusicStore.Api.Areas.HelpPage.Models
-MvcMusicStore.Api.Areas.HelpPage.ModelDescriptions
+System.Net.Http.Headers
+MvcMusicStore.CatalogApi.Areas.HelpPage.Controllers
+MvcMusicStore.CatalogApi.Areas.HelpPage.Models
+MvcMusicStore.CatalogApi.Areas.HelpPage.ModelDescriptions
+System.Collections.Generic
 System.Web.Http.Controllers
 System.Collections.Concurrent
+System.Linq
 System.Collections.ObjectModel
+System.Globalization
 System.Diagnostics
+System.ComponentModel
+System.Reflection
+System.ComponentModel.DataAnnotations
 Newtonsoft.Json
 System.Runtime.Serialization
 System.Xml.Serialization
 System.Net.Http.Formatting
 System.IO
+System.Threading.Tasks
 System.Xml.Linq
 System.Xml.XPath
-MvcMusicStore.Api.Controllers
+Amazon.DynamoDBv2.DataModel
+Amazon.DynamoDBv2
+MvcMusicStore.CatalogApi.Models
+Amazon.DynamoDBv2.DocumentModel
+MvcMusicStore.CatalogApi.Controllers
 System.Collections
-System.Globalization
-System.Collections.Specialized
+Amazon
+Amazon.DynamoDBv2.Model
 System.Net
+System.Runtime.CompilerServices
+System.Runtime.InteropServices
+project.all
 
 ===============
 DownloadedFiles
 ===============
-system.collections.specialized.json
 project.all.json
+system.web.json
+system.collections.specialized.json
 system.web.http.json
 system.web.mvc.json
-system.configuration.json
-system.data.entity.json
-system.web.json
 
 ==============
 ProjectResults
 ==============
 ----------------------
-Showing results for: C:\Users\cbbossie\source\repos\ReInvent\dotnet-modernization-music-store\MvcMusicStore.Catalog\MvcMusicStore.Catalog.csproj
+Showing results for: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\MvcMusicStore.CatalogApi.csproj
 ----------------------
 ---------------------------
 Target Versions:
@@ -86,67 +73,214 @@ Upgrade packages:
 ---------------------------
 ---------------------------
 Action packages:
+---------------------------
+---------------------------
+Executed Actions for file: Project
 ---------------------------
 
-----------------------
-Showing results for: C:\Users\cbbossie\source\repos\ReInvent\dotnet-modernization-music-store\MvcMusicStore.Api\MvcMusicStore.Api.csproj
-----------------------
+Action Type: Project
+Action Name: ArchiveFiles
+Action Value: BundleConfig.cs,FilterConfig.cs,RouteConfig.cs,WebApiConfig.cs,global.asax.cs,global.asax,AssemblyInfo.cs,packages.config
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Project
+Action Name: CreateNet5FolderHierarchy
+Action Value: 
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Project
+Action Name: MigrateConfig
+Action Value: 
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: ProjectFile
+Action Name: MigrateProjectFile
+Action Value: 
+Times Run: 1
+Invalid Executions: 0
+
 ---------------------------
-Target Versions:
----------------------------
-net5.0
----------------------------
-Upgrade packages:
----------------------------
----------------------------
-Action packages:
+Executed Actions for file: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\App_Start\FilterConfig.cs
 ---------------------------
 
-----------------------
-Showing results for: C:\Users\cbbossie\source\repos\ReInvent\dotnet-modernization-music-store\MvcMusicStore\MvcMusicStore.csproj
-----------------------
----------------------------
-Target Versions:
----------------------------
-net5.0
----------------------------
-Upgrade packages:
----------------------------
----------------------------
-Action packages:
----------------------------
-Microsoft.EntityFrameworkCore,*
+Action Type: Using
+Action Name: AddDirective
+Action Value: Microsoft.AspNetCore.Mvc
+Times Run: 1
+Invalid Executions: 0
 
-----------------------
-Showing results for: C:\Users\cbbossie\source\repos\ReInvent\dotnet-modernization-music-store\MvcMusicStore.Catalog\MvcMusicStore.Catalog.csproj
-----------------------
+Action Type: Using
+Action Name: RemoveDirective
+Action Value: System.Web.Mvc
+Times Run: 1
+Invalid Executions: 0
+
 ---------------------------
-Target Versions:
----------------------------
-net5.0
----------------------------
-Upgrade packages:
----------------------------
----------------------------
-Action packages:
+Executed Actions for file: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\Controllers\CatalogController.cs
 ---------------------------
 
-----------------------
-Showing results for: C:\Users\cbbossie\source\repos\ReInvent\dotnet-modernization-music-store\MvcMusicStore.Api\MvcMusicStore.Api.csproj
-----------------------
+Action Type: AttributeList
+Action Name: AddComment
+Action Value: RoutePrefixattributeisnolongersupported
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Identifier
+Action Name: ReplaceIdentifier
+Action Value: IActionResult
+Times Run: 2
+Invalid Executions: 0
+
+Action Type: Class
+Action Name: RemoveBaseClass
+Action Value: ApiController
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Class
+Action Name: AddBaseClass
+Action Value: ControllerBase
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Class
+Action Name: AddAttribute
+Action Value: ApiController
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: AddDirective
+Action Value: Microsoft.AspNetCore.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: RemoveDirective
+Action Value: System.Web.Http
+Times Run: 1
+Invalid Executions: 0
+
 ---------------------------
-Target Versions:
----------------------------
-net5.0
----------------------------
-Upgrade packages:
----------------------------
----------------------------
-Action packages:
+Executed Actions for file: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\Areas\HelpPage\Controllers\HelpController.cs
 ---------------------------
 
+Action Type: Using
+Action Name: AddDirective
+Action Value: Microsoft.AspNetCore.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: RemoveDirective
+Action Value: System.Web.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+---------------------------
+Executed Actions for file: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\Areas\HelpPage\HelpPageAreaRegistration.cs
+---------------------------
+
+Action Type: Using
+Action Name: AddDirective
+Action Value: Microsoft.AspNetCore.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: RemoveDirective
+Action Value: System.Web.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+---------------------------
+Executed Actions for file: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\Global.asax.cs
+---------------------------
+
+Action Type: Using
+Action Name: AddDirective
+Action Value: Microsoft.AspNetCore.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: RemoveDirective
+Action Value: System.Web.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+---------------------------
+Executed Actions for file: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\App_Start\RouteConfig.cs
+---------------------------
+
+Action Type: Using
+Action Name: AddDirective
+Action Value: Microsoft.AspNetCore.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: RemoveDirective
+Action Value: System.Web.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+---------------------------
+Executed Actions for file: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\Controllers\ValuesController.cs
+---------------------------
+
+Action Type: Class
+Action Name: RemoveBaseClass
+Action Value: ApiController
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Class
+Action Name: AddBaseClass
+Action Value: ControllerBase
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Class
+Action Name: AddAttribute
+Action Value: ApiController
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: AddDirective
+Action Value: Microsoft.AspNetCore.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: RemoveDirective
+Action Value: System.Web.Http
+Times Run: 1
+Invalid Executions: 0
+
+---------------------------
+Executed Actions for file: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\Controllers\HomeController.cs
+---------------------------
+
+Action Type: Using
+Action Name: AddDirective
+Action Value: Microsoft.AspNetCore.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: RemoveDirective
+Action Value: System.Web.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+
 ----------------------
-Showing results for: C:\Users\cbbossie\source\repos\ReInvent\dotnet-modernization-music-store\MvcMusicStore\MvcMusicStore.csproj
+Showing results for: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\MvcMusicStore.CatalogApi.csproj
 ----------------------
 ---------------------------
 Target Versions:
@@ -158,7 +292,210 @@ Upgrade packages:
 ---------------------------
 Action packages:
 ---------------------------
-Microsoft.EntityFrameworkCore,*
+---------------------------
+Executed Actions for file: Project
+---------------------------
+
+Action Type: Project
+Action Name: ArchiveFiles
+Action Value: BundleConfig.cs,FilterConfig.cs,RouteConfig.cs,WebApiConfig.cs,global.asax.cs,global.asax,AssemblyInfo.cs,packages.config
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Project
+Action Name: CreateNet5FolderHierarchy
+Action Value: 
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Project
+Action Name: MigrateConfig
+Action Value: 
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: ProjectFile
+Action Name: MigrateProjectFile
+Action Value: 
+Times Run: 1
+Invalid Executions: 0
+
+---------------------------
+Executed Actions for file: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\App_Start\FilterConfig.cs
+---------------------------
+
+Action Type: Using
+Action Name: AddDirective
+Action Value: Microsoft.AspNetCore.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: RemoveDirective
+Action Value: System.Web.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+---------------------------
+Executed Actions for file: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\Controllers\CatalogController.cs
+---------------------------
+
+Action Type: AttributeList
+Action Name: AddComment
+Action Value: RoutePrefixattributeisnolongersupported
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Identifier
+Action Name: ReplaceIdentifier
+Action Value: IActionResult
+Times Run: 2
+Invalid Executions: 0
+
+Action Type: Class
+Action Name: RemoveBaseClass
+Action Value: ApiController
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Class
+Action Name: AddBaseClass
+Action Value: ControllerBase
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Class
+Action Name: AddAttribute
+Action Value: ApiController
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: AddDirective
+Action Value: Microsoft.AspNetCore.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: RemoveDirective
+Action Value: System.Web.Http
+Times Run: 1
+Invalid Executions: 0
+
+---------------------------
+Executed Actions for file: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\Areas\HelpPage\Controllers\HelpController.cs
+---------------------------
+
+Action Type: Using
+Action Name: AddDirective
+Action Value: Microsoft.AspNetCore.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: RemoveDirective
+Action Value: System.Web.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+---------------------------
+Executed Actions for file: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\Areas\HelpPage\HelpPageAreaRegistration.cs
+---------------------------
+
+Action Type: Using
+Action Name: AddDirective
+Action Value: Microsoft.AspNetCore.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: RemoveDirective
+Action Value: System.Web.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+---------------------------
+Executed Actions for file: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\Global.asax.cs
+---------------------------
+
+Action Type: Using
+Action Name: AddDirective
+Action Value: Microsoft.AspNetCore.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: RemoveDirective
+Action Value: System.Web.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+---------------------------
+Executed Actions for file: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\App_Start\RouteConfig.cs
+---------------------------
+
+Action Type: Using
+Action Name: AddDirective
+Action Value: Microsoft.AspNetCore.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: RemoveDirective
+Action Value: System.Web.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+---------------------------
+Executed Actions for file: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\Controllers\ValuesController.cs
+---------------------------
+
+Action Type: Class
+Action Name: RemoveBaseClass
+Action Value: ApiController
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Class
+Action Name: AddBaseClass
+Action Value: ControllerBase
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Class
+Action Name: AddAttribute
+Action Value: ApiController
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: AddDirective
+Action Value: Microsoft.AspNetCore.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: RemoveDirective
+Action Value: System.Web.Http
+Times Run: 1
+Invalid Executions: 0
+
+---------------------------
+Executed Actions for file: C:\dv\Github\dotnet-modernization-music-store\MvcMusicStore.CatalogApi\Controllers\HomeController.cs
+---------------------------
+
+Action Type: Using
+Action Name: AddDirective
+Action Value: Microsoft.AspNetCore.Mvc
+Times Run: 1
+Invalid Executions: 0
+
+Action Type: Using
+Action Name: RemoveDirective
+Action Value: System.Web.Mvc
+Times Run: 1
+Invalid Executions: 0
+
 
 
 ===========

@@ -5,18 +5,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace MvcMusicStore.CatalogApi.Controllers
 {
-    [RoutePrefix("api/catalog")]
-    public class CatalogController : ApiController
+    /* Added by CTA: RoutePrefix attribute is no longer supported */
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CatalogController : ControllerBase
     {
-        CatalogService client = new CatalogService();
-
+        readonly CatalogService client = new CatalogService();
         [HttpGet]
-        [Route("genres")]
-        public IHttpActionResult Genres(string genreId = null)
+        [Route("[action]")]
+        public async Task<IActionResult> Genres(string genreId = null)
         {
             if (string.IsNullOrEmpty(genreId))
             {
@@ -24,25 +26,24 @@ namespace MvcMusicStore.CatalogApi.Controllers
             }
             else
             {
-                return Ok(new List<GenreModel> { client.GenreById(genreId.ToUpper()) });
+                return Ok(new List<GenreModel>{ await client.GenreById(genreId.ToUpper())});
             }
         }
 
         // Method expects one or more AlbumIds, comma separated
         [HttpGet]
-        [Route("albums")]
-        public IHttpActionResult Albums(string idlist = null, string genreid = null)
+        [Route("[action]")]
+        public async Task<IActionResult> AlbumsAsync(string idlist = null, string genreid = null)
         {
             List<AlbumModel> albums = new List<AlbumModel>();
-
             if (!string.IsNullOrEmpty(idlist))
             {
                 var idArray = idlist.ToUpper().Split(',');
-                albums.AddRange(client.AlbumsByIdList(idArray));
+                albums.AddRange( await client.AlbumsByIdListAsync(idArray));
             }
             else if (!string.IsNullOrEmpty(genreid))
             {
-                albums.AddRange(client.AlbumsByGenre(genreid.ToUpper()));
+                albums.AddRange(await client.AlbumsByGenreAsync(genreid.ToUpper()));
             }
 
             return Ok(albums);

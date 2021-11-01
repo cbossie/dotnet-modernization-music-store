@@ -10,17 +10,12 @@ namespace MvcMusicStore.Controllers
 {
     public class StoreController : Controller
     {
-
         ICatalogService catalogSvc = new HttpCatalogService();
-
-
         //
         // GET: /Store/
-
         public ActionResult Index()
         {
             var genres = catalogSvc.GetGenres();
-
             return View(genres);
         }
 
@@ -32,36 +27,25 @@ namespace MvcMusicStore.Controllers
             // If the genre is not found, then return an empty list of albums.
             var genreModel = catalogSvc.GetGenreByName(genre);
             var albums = catalogSvc.GetAlbumsByGenreName(genre).OrderBy(a => a.Title).ToList();
-
-            var viewModel = new StoreBrowseViewModel
-            {
-                Genre = genreModel,
-                Albums = albums
-            };
-
+            var viewModel = new StoreBrowseViewModel{Genre = genreModel, Albums = albums};
             return View(viewModel);
         }
 
         //
         // GET: /Store/Details/5
-
         public ActionResult Details(Guid id)
         {
             var album = catalogSvc.GetAlbumById(id);
-
             return View(album);
         }
 
         //
         // GET: /Store/GenreMenu
-
         [ChildActionOnly]
         public ActionResult GenreMenu()
         {
             var genres = catalogSvc.GetGenres();
-
             return PartialView(genres);
         }
-
     }
 }

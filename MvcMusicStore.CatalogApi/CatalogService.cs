@@ -33,34 +33,65 @@ namespace MvcMusicStore.CatalogApi
             context = new DynamoDBContext(dynamoClient);
         }
 
-        public IEnumerable<GenreModel> Genres()
+        public  Task<IEnumerable<GenreModel>> Genres()
         {
-            return context.Query<GenreModel>("metadata", QueryOperator.BeginsWith, new[] { "genre#" });
+            var filter = new QueryFilter();
+            filter.AddCondition("metadata", QueryOperator.BeginsWith, new[] { "genre#" });
+            return DynamoQueryAsync<GenreModel>(filter);
         }   
 
-        public GenreModel GenreById(string genreId)
+        public async Task<GenreModel> GenreById(string genreId)
         {
-            return context.Query<GenreModel>("metadata", QueryOperator.Equal, new[] { $"genre#{genreId}" }).FirstOrDefault();
+            //return context.Query<GenreModel>("metadata", QueryOperator.Equal, new[] { $"genre#{genreId}" }).FirstOrDefault();
+            var filter = new QueryFilter();
+            filter.AddCondition("metadata", QueryOperator.Equal, new[] { $"genre#{genreId}" });
+            return (await DynamoQueryAsync<GenreModel>(filter)).FirstOrDefault();
         }
 
-        public AlbumModel AlbumById(string id)
+        public async Task<AlbumModel> AlbumById(string id)
         {
-            return context.Query<AlbumModel>($"album#{id}", QueryOperator.BeginsWith, new[] { "metadata" }).FirstOrDefault();
+            //return context.Query<AlbumModel>($"album#{id}", QueryOperator.BeginsWith, new[] { "metadata" }).FirstOrDefault();
+            var filter = new QueryFilter();
+            filter.AddCondition($"album#{id}", QueryOperator.BeginsWith, new[] { "metadata" });
+            return (await DynamoQueryAsync<AlbumModel>(filter)).FirstOrDefault();
         }
-        public IEnumerable<AlbumModel> AlbumsByGenre(string genreId)
+        public Task<IEnumerable<AlbumModel>> AlbumsByGenreAsync(string genreId)
         {
-            return context.Query<AlbumModel>($"genre#{genreId}", QueryOperator.BeginsWith, new[] { "album#" });
+            //return context.Query<AlbumModel>($"genre#{genreId}", QueryOperator.BeginsWith, new[] { "album#" });
+            var filter = new QueryFilter();
+            filter.AddCondition($"genre#{genreId}", QueryOperator.BeginsWith, new[] { "album#" });
+            return DynamoQueryAsync<AlbumModel>(filter);
         }
 
-        public IEnumerable<AlbumModel> AlbumsByIdList(IEnumerable<string> ids)
+        public async Task<IEnumerable<AlbumModel>> AlbumsByIdListAsync(IEnumerable<string> ids)
         {
             var albumBatch = context.CreateBatchGet<AlbumModel>();
 
             ids.ToList().ForEach(i => albumBatch.AddKey(i, "metadata"));
 
-            albumBatch.Execute();
+            await albumBatch.ExecuteAsync();
 
             return albumBatch.Results;
+        }
+
+        private async Task<IEnumerable<T>> DynamoQueryAsync<T>(QueryFilter filter, int limit = 100)
+        {
+            var result = new List<T>();
+
+            var scanConfig = new QueryOperationConfig
+            {
+                Limit = limit,
+                Filter = filter
+            };
+            var queryResult = context.QueryAsync<T>(scanConfig);
+
+            do
+            {
+                result.AddRange(await queryResult.GetNextSetAsync());
+            }
+            while (!queryResult.IsDone && result.Count < limit);
+
+            return result;
         }
 
     }
