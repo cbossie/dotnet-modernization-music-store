@@ -1,0 +1,672 @@
+Resources:
+  demovpc6A63F275:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 172.30.0.0/16
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      InstanceTenancy: default
+      Tags:
+        - Key: Name
+          Value: WebAppInfraStack/demo-vpc
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/Resource
+  demovpcPublicSubnet1Subnet59C04EC3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 172.30.0.0/18
+      VpcId:
+        Ref: demovpc6A63F275
+      AvailabilityZone:
+        Fn::Select:
+          - 0
+          - Fn::GetAZs: ""
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: aws-cdk:subnet-name
+          Value: Public
+        - Key: aws-cdk:subnet-type
+          Value: Public
+        - Key: Name
+          Value: WebAppInfraStack/demo-vpc/PublicSubnet1
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PublicSubnet1/Subnet
+  demovpcPublicSubnet1RouteTable51989EA1:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: demovpc6A63F275
+      Tags:
+        - Key: Name
+          Value: WebAppInfraStack/demo-vpc/PublicSubnet1
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PublicSubnet1/RouteTable
+  demovpcPublicSubnet1RouteTableAssociationFF9AFCBE:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: demovpcPublicSubnet1RouteTable51989EA1
+      SubnetId:
+        Ref: demovpcPublicSubnet1Subnet59C04EC3
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PublicSubnet1/RouteTableAssociation
+  demovpcPublicSubnet1DefaultRouteDE177143:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId:
+        Ref: demovpcPublicSubnet1RouteTable51989EA1
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId:
+        Ref: demovpcIGW56AC0B57
+    DependsOn:
+      - demovpcVPCGWF2B48F8C
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PublicSubnet1/DefaultRoute
+  demovpcPublicSubnet1EIPCA80177D:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+      Tags:
+        - Key: Name
+          Value: WebAppInfraStack/demo-vpc/PublicSubnet1
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PublicSubnet1/EIP
+  demovpcPublicSubnet1NATGatewayAB5E6BBE:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      SubnetId:
+        Ref: demovpcPublicSubnet1Subnet59C04EC3
+      AllocationId:
+        Fn::GetAtt:
+          - demovpcPublicSubnet1EIPCA80177D
+          - AllocationId
+      Tags:
+        - Key: Name
+          Value: WebAppInfraStack/demo-vpc/PublicSubnet1
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PublicSubnet1/NATGateway
+  demovpcPublicSubnet2Subnet4F3C6289:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 172.30.64.0/18
+      VpcId:
+        Ref: demovpc6A63F275
+      AvailabilityZone:
+        Fn::Select:
+          - 1
+          - Fn::GetAZs: ""
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: aws-cdk:subnet-name
+          Value: Public
+        - Key: aws-cdk:subnet-type
+          Value: Public
+        - Key: Name
+          Value: WebAppInfraStack/demo-vpc/PublicSubnet2
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PublicSubnet2/Subnet
+  demovpcPublicSubnet2RouteTable034FAB8B:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: demovpc6A63F275
+      Tags:
+        - Key: Name
+          Value: WebAppInfraStack/demo-vpc/PublicSubnet2
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PublicSubnet2/RouteTable
+  demovpcPublicSubnet2RouteTableAssociation39E6991E:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: demovpcPublicSubnet2RouteTable034FAB8B
+      SubnetId:
+        Ref: demovpcPublicSubnet2Subnet4F3C6289
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PublicSubnet2/RouteTableAssociation
+  demovpcPublicSubnet2DefaultRoute5D66C9AC:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId:
+        Ref: demovpcPublicSubnet2RouteTable034FAB8B
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId:
+        Ref: demovpcIGW56AC0B57
+    DependsOn:
+      - demovpcVPCGWF2B48F8C
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PublicSubnet2/DefaultRoute
+  demovpcPublicSubnet2EIPEA9A73CA:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+      Tags:
+        - Key: Name
+          Value: WebAppInfraStack/demo-vpc/PublicSubnet2
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PublicSubnet2/EIP
+  demovpcPublicSubnet2NATGateway9A5582EA:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      SubnetId:
+        Ref: demovpcPublicSubnet2Subnet4F3C6289
+      AllocationId:
+        Fn::GetAtt:
+          - demovpcPublicSubnet2EIPEA9A73CA
+          - AllocationId
+      Tags:
+        - Key: Name
+          Value: WebAppInfraStack/demo-vpc/PublicSubnet2
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PublicSubnet2/NATGateway
+  demovpcPrivateSubnet1Subnet60C4FF92:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 172.30.128.0/18
+      VpcId:
+        Ref: demovpc6A63F275
+      AvailabilityZone:
+        Fn::Select:
+          - 0
+          - Fn::GetAZs: ""
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: aws-cdk:subnet-name
+          Value: Private
+        - Key: aws-cdk:subnet-type
+          Value: Private
+        - Key: Name
+          Value: WebAppInfraStack/demo-vpc/PrivateSubnet1
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PrivateSubnet1/Subnet
+  demovpcPrivateSubnet1RouteTable00225A39:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: demovpc6A63F275
+      Tags:
+        - Key: Name
+          Value: WebAppInfraStack/demo-vpc/PrivateSubnet1
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PrivateSubnet1/RouteTable
+  demovpcPrivateSubnet1RouteTableAssociation7FF17595:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: demovpcPrivateSubnet1RouteTable00225A39
+      SubnetId:
+        Ref: demovpcPrivateSubnet1Subnet60C4FF92
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PrivateSubnet1/RouteTableAssociation
+  demovpcPrivateSubnet1DefaultRouteC02957FA:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId:
+        Ref: demovpcPrivateSubnet1RouteTable00225A39
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId:
+        Ref: demovpcPublicSubnet1NATGatewayAB5E6BBE
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PrivateSubnet1/DefaultRoute
+  demovpcPrivateSubnet2Subnet53D6A690:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 172.30.192.0/18
+      VpcId:
+        Ref: demovpc6A63F275
+      AvailabilityZone:
+        Fn::Select:
+          - 1
+          - Fn::GetAZs: ""
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: aws-cdk:subnet-name
+          Value: Private
+        - Key: aws-cdk:subnet-type
+          Value: Private
+        - Key: Name
+          Value: WebAppInfraStack/demo-vpc/PrivateSubnet2
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PrivateSubnet2/Subnet
+  demovpcPrivateSubnet2RouteTable15934A3F:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: demovpc6A63F275
+      Tags:
+        - Key: Name
+          Value: WebAppInfraStack/demo-vpc/PrivateSubnet2
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PrivateSubnet2/RouteTable
+  demovpcPrivateSubnet2RouteTableAssociation8A33EBE6:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: demovpcPrivateSubnet2RouteTable15934A3F
+      SubnetId:
+        Ref: demovpcPrivateSubnet2Subnet53D6A690
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PrivateSubnet2/RouteTableAssociation
+  demovpcPrivateSubnet2DefaultRoute93C66FBE:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId:
+        Ref: demovpcPrivateSubnet2RouteTable15934A3F
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId:
+        Ref: demovpcPublicSubnet2NATGateway9A5582EA
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/PrivateSubnet2/DefaultRoute
+  demovpcIGW56AC0B57:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: WebAppInfraStack/demo-vpc
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/IGW
+  demovpcVPCGWF2B48F8C:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: demovpc6A63F275
+      InternetGatewayId:
+        Ref: demovpcIGW56AC0B57
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-vpc/VPCGW
+  democluster9F0F8BE1:
+    Type: AWS::ECS::Cluster
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-cluster/Resource
+  TopicBFC7AF6E:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: Customer subscription topic
+      TopicName: addo-demo-web-app-topic
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/Topic/Resource
+  demoserviceLB4B2B1BF2:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      LoadBalancerAttributes:
+        - Key: deletion_protection.enabled
+          Value: "false"
+      Scheme: internet-facing
+      SecurityGroups:
+        - Fn::GetAtt:
+            - demoserviceLBSecurityGroupB7433664
+            - GroupId
+      Subnets:
+        - Ref: demovpcPublicSubnet1Subnet59C04EC3
+        - Ref: demovpcPublicSubnet2Subnet4F3C6289
+      Type: application
+    DependsOn:
+      - demovpcPublicSubnet1DefaultRouteDE177143
+      - demovpcPublicSubnet2DefaultRoute5D66C9AC
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-service/LB/Resource
+  demoserviceLBSecurityGroupB7433664:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Automatically created Security Group for ELB WebAppInfraStackdemoserviceLB72BC164F
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          Description: Allow from anyone on port 80
+          FromPort: 80
+          IpProtocol: tcp
+          ToPort: 80
+      VpcId:
+        Ref: demovpc6A63F275
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-service/LB/SecurityGroup/Resource
+  demoserviceLBSecurityGrouptoWebAppInfraStackdemoserviceServiceSecurityGroupFE37520180D63C1DEC:
+    Type: AWS::EC2::SecurityGroupEgress
+    Properties:
+      GroupId:
+        Fn::GetAtt:
+          - demoserviceLBSecurityGroupB7433664
+          - GroupId
+      IpProtocol: tcp
+      Description: Load balancer to target
+      DestinationSecurityGroupId:
+        Fn::GetAtt:
+          - demoserviceServiceSecurityGroupF47260B1
+          - GroupId
+      FromPort: 80
+      ToPort: 80
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-service/LB/SecurityGroup/to WebAppInfraStackdemoserviceServiceSecurityGroupFE375201:80
+  demoserviceLBPublicListener0409B8C6:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions:
+        - TargetGroupArn:
+            Ref: demoserviceLBPublicListenerECSGroup09A12C15
+          Type: forward
+      LoadBalancerArn:
+        Ref: demoserviceLB4B2B1BF2
+      Port: 80
+      Protocol: HTTP
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-service/LB/PublicListener/Resource
+  demoserviceLBPublicListenerECSGroup09A12C15:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Port: 80
+      Protocol: HTTP
+      TargetType: ip
+      VpcId:
+        Ref: demovpc6A63F275
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-service/LB/PublicListener/ECSGroup/Resource
+  demoserviceTaskDefTaskRole586A7A1C:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+        Version: "2012-10-17"
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-service/TaskDef/TaskRole/Resource
+  demoserviceTaskDefTaskRoleDefaultPolicy78838EC6:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action: sns:Publish
+            Effect: Allow
+            Resource:
+              Ref: TopicBFC7AF6E
+        Version: "2012-10-17"
+      PolicyName: demoserviceTaskDefTaskRoleDefaultPolicy78838EC6
+      Roles:
+        - Ref: demoserviceTaskDefTaskRole586A7A1C
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-service/TaskDef/TaskRole/DefaultPolicy/Resource
+  demoserviceTaskDef3D628E08:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      ContainerDefinitions:
+        - Environment:
+            - Name: SNS_TOPIC_ARN
+              Value:
+                Ref: TopicBFC7AF6E
+            - Name: AWS_REGION
+              Value:
+                Ref: AWS::Region
+            - Name: ASPNETCORE_ENVIRONMENT
+              Value: Development
+            - Name: ASPNETCORE_URLS
+              Value: http://+:80
+          Essential: true
+          Image:
+            Fn::Join:
+              - ""
+              - - Ref: AWS::AccountId
+                - .dkr.ecr.
+                - Ref: AWS::Region
+                - "."
+                - Ref: AWS::URLSuffix
+                - /aws-cdk/assets:04600135a3494ae6d4172daffc96de96aa966d81024d47da9a1b1766be24da3a
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group:
+                Ref: demoserviceTaskDefwebLogGroup87747F0E
+              awslogs-stream-prefix: demo-service
+              awslogs-region:
+                Ref: AWS::Region
+          Name: web
+          PortMappings:
+            - ContainerPort: 80
+              Protocol: tcp
+      Cpu: "512"
+      ExecutionRoleArn:
+        Fn::GetAtt:
+          - demoserviceTaskDefExecutionRole2FFCFA31
+          - Arn
+      Family: WebAppInfraStackdemoserviceTaskDef1C742E47
+      Memory: "1024"
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      TaskRoleArn:
+        Fn::GetAtt:
+          - demoserviceTaskDefTaskRole586A7A1C
+          - Arn
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-service/TaskDef/Resource
+  demoserviceTaskDefwebLogGroup87747F0E:
+    Type: AWS::Logs::LogGroup
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-service/TaskDef/web/LogGroup/Resource
+  demoserviceTaskDefExecutionRole2FFCFA31:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+        Version: "2012-10-17"
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-service/TaskDef/ExecutionRole/Resource
+  demoserviceTaskDefExecutionRoleDefaultPolicyCB9D0E45:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - ecr:BatchCheckLayerAvailability
+              - ecr:GetDownloadUrlForLayer
+              - ecr:BatchGetImage
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ""
+                - - "arn:"
+                  - Ref: AWS::Partition
+                  - ":ecr:"
+                  - Ref: AWS::Region
+                  - ":"
+                  - Ref: AWS::AccountId
+                  - :repository/aws-cdk/assets
+          - Action: ecr:GetAuthorizationToken
+            Effect: Allow
+            Resource: "*"
+          - Action:
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Effect: Allow
+            Resource:
+              Fn::GetAtt:
+                - demoserviceTaskDefwebLogGroup87747F0E
+                - Arn
+        Version: "2012-10-17"
+      PolicyName: demoserviceTaskDefExecutionRoleDefaultPolicyCB9D0E45
+      Roles:
+        - Ref: demoserviceTaskDefExecutionRole2FFCFA31
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-service/TaskDef/ExecutionRole/DefaultPolicy/Resource
+  demoserviceService92541146:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster:
+        Ref: democluster9F0F8BE1
+      DeploymentConfiguration:
+        MaximumPercent: 200
+        MinimumHealthyPercent: 50
+      EnableECSManagedTags: false
+      HealthCheckGracePeriodSeconds: 60
+      LaunchType: FARGATE
+      LoadBalancers:
+        - ContainerName: web
+          ContainerPort: 80
+          TargetGroupArn:
+            Ref: demoserviceLBPublicListenerECSGroup09A12C15
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: DISABLED
+          SecurityGroups:
+            - Fn::GetAtt:
+                - demoserviceServiceSecurityGroupF47260B1
+                - GroupId
+          Subnets:
+            - Ref: demovpcPrivateSubnet1Subnet60C4FF92
+            - Ref: demovpcPrivateSubnet2Subnet53D6A690
+      TaskDefinition:
+        Ref: demoserviceTaskDef3D628E08
+    DependsOn:
+      - demoserviceLBPublicListenerECSGroup09A12C15
+      - demoserviceLBPublicListener0409B8C6
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-service/Service/Service
+  demoserviceServiceSecurityGroupF47260B1:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: WebAppInfraStack/demo-service/Service/SecurityGroup
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          Description: Allow all outbound traffic by default
+          IpProtocol: "-1"
+      VpcId:
+        Ref: demovpc6A63F275
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-service/Service/SecurityGroup/Resource
+  demoserviceServiceSecurityGroupfromWebAppInfraStackdemoserviceLBSecurityGroupDA5F8ACB808B092541:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      IpProtocol: tcp
+      Description: Load balancer to target
+      FromPort: 80
+      GroupId:
+        Fn::GetAtt:
+          - demoserviceServiceSecurityGroupF47260B1
+          - GroupId
+      SourceSecurityGroupId:
+        Fn::GetAtt:
+          - demoserviceLBSecurityGroupB7433664
+          - GroupId
+      ToPort: 80
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/demo-service/Service/SecurityGroup/from WebAppInfraStackdemoserviceLBSecurityGroupDA5F8ACB:80
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Analytics: v2:deflate64:H4sIAAAAAAAA/31TTY/aMBD9LXt3zEdPPVQqG+gKaUWjgLgPZjZ1CXZkj1mhKP+9YycBdltVOfj5zfc8ZyZn869y+vQd3n2mjqdJq6xD2W4J1EmU6G1wCsXCeyTmKm0qkb+Zn4GaQCK3xpMLiiJ3c2bMhqMmbU0nYuIW1Vy2+0ZF277IRREOtVbbcDCYYu+otIFwB4ca7/yd4z6s0hAz35wjWK2LeGyAXoDwHa6icPrC8J54bQgd49Gh72S4LYjn/XVGQ2KLKjhN1xdnQ5N6+C+xqhx6/xe9NonvBCov27wOnqunzQzwB7gK4lT+tMQ3bfQ402fGGgJt0D1wQ+wW3UX3+x5gLOcyiGJ5ubTqhG59hgqTfNEmS2ys12Td9Rk8Cm+4u51tdFImgdRy1gDFdXm5aBpWKm381cLxGWowCo+fWsAaPGlVs8chefA7ubDk/45Oi/hwf/TTvB8z+Iz4wb7jyqziKMbDtRMazrItbf920llYjkti96gTta145ldb3VKMuOs6sbS0QZp8kTM5n07kZrXL+X/g8tkenefy3y5sm8zkNH5Pv73WmQuG9Bll2Z9/ANP5qMBTAwAA
+    Metadata:
+      aws:cdk:path: WebAppInfraStack/CDKMetadata/Default
+    Condition: CDKMetadataAvailable
+Outputs:
+  demoserviceLoadBalancerDNSE9520154:
+    Value:
+      Fn::GetAtt:
+        - demoserviceLB4B2B1BF2
+        - DNSName
+  demoserviceServiceURL1659A9E9:
+    Value:
+      Fn::Join:
+        - ""
+        - - http://
+          - Fn::GetAtt:
+              - demoserviceLB4B2B1BF2
+              - DNSName
+  AddoDemoSnsTopicArn:
+    Value:
+      Ref: TopicBFC7AF6E
+    Export:
+      Name: AddoDemoSnsTopicArn
+  AddoDemoVpcId:
+    Value:
+      Ref: demovpc6A63F275
+    Export:
+      Name: AddoDemoVpcId
+  AddoDemoClusterArn:
+    Value:
+      Fn::GetAtt:
+        - democluster9F0F8BE1
+        - Arn
+  AddoDemoClusterName:
+    Value:
+      Ref: democluster9F0F8BE1
+  AddoDemoClusterSgIds:
+    Value: ""
+Conditions:
+  CDKMetadataAvailable:
+    Fn::Or:
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - af-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ca-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-northwest-1
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-3
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - me-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - sa-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-2
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-2
+
