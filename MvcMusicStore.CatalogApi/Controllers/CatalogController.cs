@@ -20,9 +20,9 @@ namespace MvcMusicStore.CatalogApi.Controllers
         [Route("[action]")]
         public async Task<IActionResult> Genres(string genreId = null)
         {
-            if (string.IsNullOrEmpty(genreId))
+            if (string.IsNullOrEmpty(name))
             {
-                return Ok(client.Genres());
+                return Ok(await client.Genres());
             }
             else
             {
@@ -41,7 +41,7 @@ namespace MvcMusicStore.CatalogApi.Controllers
                 var idArray = idlist.ToUpper().Split(',');
                 albums.AddRange( await client.AlbumsByIdListAsync(idArray));
             }
-            else if (!string.IsNullOrEmpty(genreid))
+            else if (!string.IsNullOrEmpty(genreName))
             {
                 albums.AddRange(await client.AlbumsByGenreAsync(genreid.ToUpper()));
             }
