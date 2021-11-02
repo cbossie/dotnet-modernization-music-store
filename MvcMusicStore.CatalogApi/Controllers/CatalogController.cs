@@ -18,32 +18,34 @@ namespace MvcMusicStore.CatalogApi.Controllers
         readonly CatalogService client = new CatalogService();
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> Genres(string genreId = null)
+        public async Task<IActionResult> Genres(string name = null)
         {
             if (string.IsNullOrEmpty(name))
             {
-                return Ok(await client.Genres());
+                return Ok(await client.GenresAsync());
             }
             else
             {
-                return Ok(new List<GenreModel>{ await client.GenreById(genreId.ToUpper())});
+                return Ok(new List<GenreModel> { await client.GenreByNameAsync(name) });
             }
         }
+
 
         // Method expects one or more AlbumIds, comma separated
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> AlbumsAsync(string idlist = null, string genreid = null)
+        public async Task<IActionResult> Albums(string idlist = null, string genreName = null)
         {
             List<AlbumModel> albums = new List<AlbumModel>();
+
             if (!string.IsNullOrEmpty(idlist))
             {
                 var idArray = idlist.ToUpper().Split(',');
-                albums.AddRange( await client.AlbumsByIdListAsync(idArray));
+                albums.AddRange(await client.AlbumsByIdListAsync(idArray));
             }
             else if (!string.IsNullOrEmpty(genreName))
             {
-                albums.AddRange(await client.AlbumsByGenreAsync(genreid.ToUpper()));
+                albums.AddRange(await client.AlbumsByGenreAsync(genreName));
             }
 
             return Ok(albums);

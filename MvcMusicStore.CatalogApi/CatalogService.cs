@@ -17,8 +17,8 @@ namespace MvcMusicStore.CatalogApi
      **/
     public class CatalogService
     {
-        DynamoDBContext context;
-        AmazonDynamoDBClient dynamoClient;
+        readonly DynamoDBContext context;
+        readonly AmazonDynamoDBClient dynamoClient;
 
         // TODO - The "How" of configuring the DynamoDB client should be determined. We are
         // running this on an EC2 instance with a default profile, and will deploy to EC2 with execution
@@ -29,38 +29,37 @@ namespace MvcMusicStore.CatalogApi
         // async pattern if we have time.
         public CatalogService()
         {
-            dynamoClient = new AmazonDynamoDBClient();
+            dynamoClient = new AmazonDynamoDBClient(region: RegionEndpoint.GetBySystemName("us-west-2"));
             context = new DynamoDBContext(dynamoClient);
         }
 
-        public  Task<IEnumerable<GenreModel>> Genres()
+        public async Task<IEnumerable<GenreModel>> GenresAsync()
         {
-            var filter = new QueryFilter();
-            filter.AddCondition("metadata", QueryOperator.BeginsWith, new[] { "genre#" });
-            return DynamoQueryAsync<GenreModel>(filter);
-        }   
+            var queryOperation = context.QueryAsync<GenreModel>("GENRE");
 
-        public async Task<GenreModel> GenreById(string genreId)
-        {
-            //return context.Query<GenreModel>("metadata", QueryOperator.Equal, new[] { $"genre#{genreId}" }).FirstOrDefault();
-            var filter = new QueryFilter();
-            filter.AddCondition("metadata", QueryOperator.Equal, new[] { $"genre#{genreId}" });
-            return (await DynamoQueryAsync<GenreModel>(filter)).FirstOrDefault();
+            return await queryOperation.GetRemainingAsync();
         }
 
-        public async Task<AlbumModel> AlbumById(string id)
+        public async Task<GenreModel> GenreByNameAsync(string name)
         {
-            //return context.Query<AlbumModel>($"album#{id}", QueryOperator.BeginsWith, new[] { "metadata" }).FirstOrDefault();
-            var filter = new QueryFilter();
-            filter.AddCondition($"album#{id}", QueryOperator.BeginsWith, new[] { "metadata" });
-            return (await DynamoQueryAsync<AlbumModel>(filter)).FirstOrDefault();
+            return await context.LoadAsync<GenreModel>("GENRE", name);
         }
-        public Task<IEnumerable<AlbumModel>> AlbumsByGenreAsync(string genreId)
+
+        public async Task<AlbumModel> AlbumByIdAsync(string albumId)
         {
-            //return context.Query<AlbumModel>($"genre#{genreId}", QueryOperator.BeginsWith, new[] { "album#" });
-            var filter = new QueryFilter();
-            filter.AddCondition($"genre#{genreId}", QueryOperator.BeginsWith, new[] { "album#" });
-            return DynamoQueryAsync<AlbumModel>(filter);
+            var queryOperation = context.QueryAsync<AlbumModel>(albumId, new DynamoDBOperationConfig { IndexName = "album-by-id" });
+
+            var albums = await queryOperation.GetRemainingAsync();
+
+            return albums.FirstOrDefault();
+
+        }
+
+        public async Task<IEnumerable<AlbumModel>> AlbumsByGenreAsync(string genreName)
+        {
+            var queryOperation = context.QueryAsync<AlbumModel>(genreName, new DynamoDBOperationConfig { IndexName = "genre-albums" });
+
+            return await queryOperation.GetRemainingAsync();
         }
 
         public async Task<IEnumerable<AlbumModel>> AlbumsByIdListAsync(IEnumerable<string> ids)
@@ -72,26 +71,6 @@ namespace MvcMusicStore.CatalogApi
             await albumBatch.ExecuteAsync();
 
             return albumBatch.Results;
-        }
-
-        private async Task<IEnumerable<T>> DynamoQueryAsync<T>(QueryFilter filter, int limit = 100)
-        {
-            var result = new List<T>();
-
-            var scanConfig = new QueryOperationConfig
-            {
-                Limit = limit,
-                Filter = filter
-            };
-            var queryResult = context.QueryAsync<T>(scanConfig);
-
-            do
-            {
-                result.AddRange(await queryResult.GetNextSetAsync());
-            }
-            while (!queryResult.IsDone);
-
-            return result;
         }
 
     }
