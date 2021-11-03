@@ -18,10 +18,10 @@ namespace Infra
             // VPC
             var importedVpcId = "vpc-7efc6e06";
 
-            // var vpc = Vpc.FromLookup(this, "imported-vpc", new VpcLookupOptions
-            // {
-            //     VpcId = importedVpcId
-            // });
+            var vpc = new Vpc(this,"cluster-vpc", new VpcProps{
+                Cidr = "172.51.0.0/16",
+                MaxAzs =3
+            });
 
             // var vpc = Vpc.FromVpcAttributes(this, "imported-vpc",new VpcAttributes{
             //     VpcId = importedVpcId
@@ -38,16 +38,16 @@ namespace Infra
                 File = "Dockerfile"
             });
            
-            // // Create Cluster 
-            // var cluster = new Cluster(this, "demo-cluster", new ClusterProps
-            // {
-            //     Vpc = vpc,
-            // });
+            // Create Cluster 
+            var cluster = new Cluster(this, "demo-cluster", new ClusterProps
+            {
+                Vpc = vpc,
+            });
 
             //L3 Construct for ALB + ECS + Fargate
             var loadBalancedFargateService = new ApplicationLoadBalancedFargateService(this, "demo-ecs-fargate-service", new ApplicationLoadBalancedFargateServiceProps
             {
-                // Cluster = cluster,
+                Cluster = cluster,
                 MemoryLimitMiB = 1024,
                 Cpu = 512,
                 TaskImageOptions = new ApplicationLoadBalancedTaskImageOptions
