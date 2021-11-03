@@ -16,7 +16,7 @@ namespace Infra
         {
             // Import existing Resources
             // VPC
-            var importedVpcId = "vpc-7efc6e06";
+            // var importedVpcId = "vpc-7efc6e06";
 
             var vpc = new Vpc(this,"cluster-vpc", new VpcProps{
                 Cidr = "172.51.0.0/16",
