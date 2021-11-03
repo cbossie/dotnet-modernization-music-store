@@ -16,7 +16,7 @@ namespace Infra
         {
             // Import existing Resources
             // VPC
-            var importedVpcId = "INFORM_VPC_ID";
+            var importedVpcId = "vpc-7efc6e06";
 
             var vpc = Vpc.FromLookup(this, "imported-vpc", new VpcLookupOptions
             {
@@ -24,9 +24,7 @@ namespace Infra
             });
 
             // Import DynamoDb Tables
-            var albumTable = Table.FromTableArn (this, "imported-album-table", "arn:aws:dynamodb:us-west-2:111122223333:table/TODO_INFORM_ALBUM_TABLE_ARN");
-            var genreTable = Table.FromTableArn (this, "imported-genre-table", "arn:aws:dynamodb:us-west-2:111122223333:table/TODO_INFORM_GENRE_TABLE_ARN");
-            var artistTable = Table.FromTableArn (this, "imported-artist-table", "arn:aws:dynamodb:us-west-2:111122223333:table/TODO_INFORM_ARTIST_TABLE_ARN");
+            var catalogTable = Table.FromTableArn (this, "imported-album-table", $"arn:aws:dynamodb:{this.Region}:{this.Account}:table/Catalog");
 
             //ECR
             //Build docker image and publish on ECR Repository
@@ -61,9 +59,7 @@ namespace Infra
             });
 
             //Grant Read Permission
-            albumTable.GrantReadData(loadBalancedFargateService.Service.TaskDefinition.TaskRole);
-            genreTable.GrantReadData(loadBalancedFargateService.Service.TaskDefinition.TaskRole);
-            artistTable.GrantReadData(loadBalancedFargateService.Service.TaskDefinition.TaskRole);
+            catalogTable.GrantReadData(loadBalancedFargateService.Service.TaskDefinition.TaskRole);
 
             new CfnOutput(this, "AddoDemoClusterArn", new CfnOutputProps { Value = cluster.ClusterArn });
             new CfnOutput(this, "AddoDemoClusterName", new CfnOutputProps { Value = cluster.ClusterName });
