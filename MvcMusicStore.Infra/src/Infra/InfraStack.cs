@@ -18,10 +18,14 @@ namespace Infra
             // VPC
             var importedVpcId = "vpc-7efc6e06";
 
-            var vpc = Vpc.FromLookup(this, "imported-vpc", new VpcLookupOptions
-            {
-                VpcId = importedVpcId
-            });
+            // var vpc = Vpc.FromLookup(this, "imported-vpc", new VpcLookupOptions
+            // {
+            //     VpcId = importedVpcId
+            // });
+
+            // var vpc = Vpc.FromVpcAttributes(this, "imported-vpc",new VpcAttributes{
+            //     VpcId = importedVpcId
+            // });
 
             // Import DynamoDb Tables
             var catalogTable = Table.FromTableArn (this, "imported-album-table", $"arn:aws:dynamodb:{this.Region}:{this.Account}:table/Catalog");
@@ -34,16 +38,16 @@ namespace Infra
                 File = "Dockerfile"
             });
            
-            // Create Cluster 
-            var cluster = new Cluster(this, "demo-cluster", new ClusterProps
-            {
-                Vpc = vpc,
-            });
+            // // Create Cluster 
+            // var cluster = new Cluster(this, "demo-cluster", new ClusterProps
+            // {
+            //     Vpc = vpc,
+            // });
 
             //L3 Construct for ALB + ECS + Fargate
             var loadBalancedFargateService = new ApplicationLoadBalancedFargateService(this, "demo-ecs-fargate-service", new ApplicationLoadBalancedFargateServiceProps
             {
-                Cluster = cluster,
+                // Cluster = cluster,
                 MemoryLimitMiB = 1024,
                 Cpu = 512,
                 TaskImageOptions = new ApplicationLoadBalancedTaskImageOptions
@@ -61,8 +65,8 @@ namespace Infra
             //Grant Read Permission
             catalogTable.GrantReadData(loadBalancedFargateService.Service.TaskDefinition.TaskRole);
 
-            new CfnOutput(this, "AddoDemoClusterArn", new CfnOutputProps { Value = cluster.ClusterArn });
-            new CfnOutput(this, "AddoDemoClusterName", new CfnOutputProps { Value = cluster.ClusterName });
+            // new CfnOutput(this, "AddoDemoClusterArn", new CfnOutputProps { Value = cluster.ClusterArn });
+            // new CfnOutput(this, "AddoDemoClusterName", new CfnOutputProps { Value = cluster.ClusterName });
         }
     }
 }

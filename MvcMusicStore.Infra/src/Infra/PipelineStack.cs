@@ -33,6 +33,14 @@ namespace Infra
             });
 
 
+            // pipeline.AddStage(new PipelineAppStage(this, "App-Infra-Stage", new Amazon.CDK.StageProps
+            // {
+            //     Env = new Environment
+            //     {
+            //         Account = this.Account,
+            //         Region = this.Region
+            //     }
+            // }));
             pipeline.AddStage(new PipelineAppStage(this, "App-Infra-Stage"));
         }
 
