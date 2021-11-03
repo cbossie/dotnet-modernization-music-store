@@ -1,16 +1,6 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Amazon.CDK;
 using Amazon.CDK.AWS.CodeCommit;
-using Amazon.CDK.AWS.CodePipeline;
-using Amazon.CDK.AWS.CodePipeline.Actions;
 using Amazon.CDK.Pipelines;
-using Amazon.CDK.AWS.DynamoDB;
-using Amazon.CDK.AWS.EC2;
-using Amazon.CDK.AWS.Ecr.Assets;
-using Amazon.CDK.AWS.ECS;
-using Amazon.CDK.AWS.ECS.Patterns;
 
 namespace Infra
 {
@@ -43,14 +33,14 @@ namespace Infra
             });
 
 
-            // pipeline.AddStage(new PipelineAppStage(this, "App-Infra-Stage", new Amazon.CDK.StageProps
-            // {
-            //     Env = new Environment
-            //     {
-            //         Account = this.Account,
-            //         Region = this.Region
-            //     }
-            // }));
+            pipeline.AddStage(new PipelineAppStage(this, "App-Infra-Stage", new Amazon.CDK.StageProps
+            {
+                Env = new Environment
+                {
+                    Account = this.Account,
+                    Region = this.Region
+                }
+            }));
         }
 
     }
