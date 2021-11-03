@@ -31,8 +31,9 @@ namespace Infra
                     Input = CodePipelineSource.CodeCommit(repo, "ci-cd-modernization-cdk-from-strangle-3") ,
                     Commands = new string[] { 
                             "npm install -g aws-cdk",
-                            "sudo apt-get install -y dotnet-sdk-5.0", 
+                            "apt-get install -y dotnet-sdk-5.0", 
                             "cd MvcMusicStore.Infra",
+                            "dotnet build src",
                             "cdk synth" 
                         }
                 })
