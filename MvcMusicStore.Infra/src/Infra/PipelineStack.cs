@@ -25,12 +25,13 @@ namespace Infra
 
             var pipeline = new CodePipeline(this, "pipeline", new CodePipelineProps
             {
-                PipelineName = "MyPipeline",
+                PipelineName = "MusicStore-Pipeline",
                 Synth = new ShellStep("Synth", new ShellStepProps
                 {
-                    Input = CodePipelineSource.CodeCommit(repo, "SourceCode") ,
+                    Input = CodePipelineSource.CodeCommit(repo, "ci-cd-modernization-cdk-from-strangle-3") ,
                     Commands = new string[] { 
-                            "npm install -g aws-cdk", 
+                            "npm install -g aws-cdk",
+                            "sudo apt-get install -y dotnet-sdk-5.0", 
                             "cd MvcMusicStore.Infra",
                             "cdk synth" 
                         }
