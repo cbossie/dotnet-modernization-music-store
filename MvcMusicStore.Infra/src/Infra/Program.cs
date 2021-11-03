@@ -24,7 +24,7 @@ namespace Infra
             //         Account = System.Environment.GetEnvironmentVariable("CDK_DEFAULT_ACCOUNT"),
             //         Region = System.Environment.GetEnvironmentVariable("CDK_DEFAULT_REGION"),
             //     }
-                
+
 
             //     // Uncomment the next block if you know exactly what Account and Region you
             //     // want to deploy the stack to.
@@ -38,7 +38,17 @@ namespace Infra
 
             //     // For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
             // });
-            new PipelineStack(app, "PipelineStack");
+            new PipelineStack(app, "PipelineStack", new StackProps
+            {
+
+                Env = new Amazon.CDK.Environment
+                {
+                    Account = System.Environment.GetEnvironmentVariable("CDK_DEFAULT_ACCOUNT"),
+                    Region = System.Environment.GetEnvironmentVariable("CDK_DEFAULT_REGION"),
+                }
+
+
+            });
 
             app.Synth();
         }

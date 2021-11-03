@@ -28,16 +28,26 @@ namespace Infra
                 PipelineName = "MusicStore-Pipeline",
                 Synth = new ShellStep("Synth", new ShellStepProps
                 {
-                    Input = CodePipelineSource.CodeCommit(repo, "ci-cd-modernization-cdk-from-strangle-3") ,
-                    Commands = new string[] { 
+                    Input = CodePipelineSource.CodeCommit(repo, "ci-cd-modernization-cdk-from-strangle-3"),
+                    Commands = new string[] {
                             "npm install -g aws-cdk",
-                            "apt-get install -y dotnet-sdk-5.0", 
+                            // "apt-get install -y dotnet-sdk-5.0", 
                             "cd MvcMusicStore.Infra",
                             "dotnet build src",
-                            "cdk synth" 
+                            "cdk synth"
                         }
                 })
             });
+
+
+            pipeline.AddStage(new PipelineAppStage(this, "App-Infra-Stage", new Amazon.CDK.StageProps
+            {
+                Env = new Environment
+                {
+                    Account = this.Account,
+                    Region = this.Region
+                }
+            }));
         }
 
     }
