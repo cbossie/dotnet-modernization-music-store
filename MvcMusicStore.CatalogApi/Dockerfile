@@ -6,11 +6,9 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-WORKDIR /src
-COPY ["MvcMusicStore.CatalogApi/MvcMusicStore.CatalogApi.csproj", "MvcMusicStore.CatalogApi/"]
-RUN dotnet restore "MvcMusicStore.CatalogApi/MvcMusicStore.CatalogApi.csproj"
-COPY . .
 WORKDIR "/src/MvcMusicStore.CatalogApi"
+COPY . .
+RUN dotnet restore "MvcMusicStore.CatalogApi.csproj"
 RUN dotnet build "MvcMusicStore.CatalogApi.csproj" -c Release -o /app/build
 
 FROM build AS publish
