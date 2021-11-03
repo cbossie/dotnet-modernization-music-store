@@ -32,7 +32,6 @@ namespace Infra
                     PrimaryOutputDirectory = "MvcMusicStore.Infra/cdk.out",
                     InstallCommands = new string[]{
                         "npm install -g aws-cdk",
-                            // "apt-get install -y dotnet-sdk-5.0", 
                     },
                     Commands = new string[] {
                             "cd MvcMusicStore.Infra",
