@@ -14,19 +14,12 @@ namespace Infra
     {
         internal InfraStack(Construct scope, string id, IStackProps props = null) : base(scope, id, props)
         {
-            // Import existing Resources
-            // VPC
-            // var importedVpcId = "vpc-7efc6e06";
-
+            //VPC
             var vpc = new Vpc(this, "cluster-vpc", new VpcProps
             {
                 Cidr = "172.51.0.0/16",
                 MaxAzs = 3
             });
-
-            // var vpc = Vpc.FromLookup(this, "imported-vpc",new VpcLookupOptions{
-            //     VpcId = importedVpcId
-            // });
 
             // Import DynamoDb Tables
             var catalogTable = Table.FromTableArn(this, "imported-album-table", $"arn:aws:dynamodb:{this.Region}:{this.Account}:table/Catalog");
@@ -39,7 +32,7 @@ namespace Infra
                 File = "Dockerfile"
             });
 
-            // Create Cluster 
+            // Create ECS Cluster 
             var cluster = new Cluster(this, "demo-cluster", new ClusterProps
             {
                 Vpc = vpc,
@@ -65,9 +58,6 @@ namespace Infra
 
             //Grant Read Permission
             catalogTable.GrantReadData(loadBalancedFargateService.Service.TaskDefinition.TaskRole);
-
-            // new CfnOutput(this, "AddoDemoClusterArn", new CfnOutputProps { Value = cluster.ClusterArn });
-            // new CfnOutput(this, "AddoDemoClusterName", new CfnOutputProps { Value = cluster.ClusterName });
         }
     }
 }
