@@ -16,17 +16,17 @@ namespace Infra
         {
             // Import existing Resources
             // VPC
-            var importedVpcId = "vpc-7efc6e06";
+            // var importedVpcId = "vpc-7efc6e06";
 
-            // var vpc = new Vpc(this, "cluster-vpc", new VpcProps
-            // {
-            //     Cidr = "172.51.0.0/16",
-            //     MaxAzs = 3
-            // });
-
-            var vpc = Vpc.FromLookup(this, "imported-vpc",new VpcLookupOptions{
-                VpcId = importedVpcId
+            var vpc = new Vpc(this, "cluster-vpc", new VpcProps
+            {
+                Cidr = "172.51.0.0/16",
+                MaxAzs = 3
             });
+
+            // var vpc = Vpc.FromLookup(this, "imported-vpc",new VpcLookupOptions{
+            //     VpcId = importedVpcId
+            // });
 
             // Import DynamoDb Tables
             var catalogTable = Table.FromTableArn(this, "imported-album-table", $"arn:aws:dynamodb:{this.Region}:{this.Account}:table/Catalog");
