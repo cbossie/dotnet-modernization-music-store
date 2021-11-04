@@ -53,7 +53,7 @@ namespace Infra
                 Cpu = 512,
                 TaskImageOptions = new ApplicationLoadBalancedTaskImageOptions
                 {
-                    Image = ContainerImage.FromEcrRepository(asset.Repository, asset.ImageUri.Split(":").Last()),
+                    Image = ContainerImage.FromDockerImageAsset(asset),  //.FromEcrRepository(asset.Repository, asset.ImageUri.Split(":").Last()),
                     Environment = new Dictionary<string, string>()
                         {
                             {"AWS_REGION", this.Region},
