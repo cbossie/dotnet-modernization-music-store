@@ -33,6 +33,8 @@ namespace MvcMusicStoreInfra
                 }),
 
             });
+
+            pipeline.AddStage(new MusicStoreInfraPipelineStage(this, "Deploy"));
         }
     }
 }
