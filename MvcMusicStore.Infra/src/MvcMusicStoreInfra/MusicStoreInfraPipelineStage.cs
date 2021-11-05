@@ -6,7 +6,7 @@ namespace MvcMusicStoreInfra
     {
         public MusicStoreInfraPipelineStage(Construct scope, string id, StageProps props = null) : base(scope, id, props)
         {
-            new MusicStoreInfraResourcesStack(this, "music-store-resources-stack");
+            new MusicStoreInfraResourcesStack(this, "MusicStoreInfraResourcesStack");
         }
 
     }
