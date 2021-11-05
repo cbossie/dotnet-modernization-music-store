@@ -1,7 +1,4 @@
 ﻿using Amazon.CDK;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MvcMusicStoreInfra
 {
@@ -9,7 +6,7 @@ namespace MvcMusicStoreInfra
     {
         public MusicStoreInfraPipelineStage(Construct scope, string id, StageProps props = null) : base(scope, id, props)
         {
-            //The Resources Stack will be Instantiated here
+            new MusicStoreInfraResourcesStack(this, "music-store-resources-stack");
         }
 
     }
